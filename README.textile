@@ -1,8 +1,32 @@
-= shortly
+h1. Shortly
 
-Description goes here.
+A Ruby wrapper for various url shortener services
 
-== Contributing to shortly
+h2. Getting Started
+
+create a dependency in your Gemfile
+
+@gem 'shortly'@
+
+then run
+
+@bundle install@
+
+and shortly will be up and running.
+
+h2. Uses
+
+Coming Shortly(or see the code)
+
+h2. More Info
+
+For detailed info visit my blog "http://BagwanPankaj.com":http://bagwanpankaj.com
+
+For more info write me at bagwanpankaj[at]gmail.com or me[at]bagwanpankaj.com
+
+Copyright (c) 2010 Bagwan Pankaj: http://bagwanpankaj.com, released under the MIT license
+
+h2. Contributing to shortly
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -12,8 +36,6 @@ Description goes here.
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+h2. Copyright
 
-Copyright (c) 2011 bagwanpankaj. See LICENSE.txt for
-further details.
-
+Copyright (c) 2010 [Bagwan Pankaj]. See LICENSE.txt for further details.
