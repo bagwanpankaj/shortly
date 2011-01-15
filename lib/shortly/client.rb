@@ -29,16 +29,8 @@ module Shortly
     
     base_uri ''
     
-    def self.shorten(url, options ={})
-      raise MethodNotAvailableError.new("Sorry. This method is not available for given service.")
-    end
-    
-    def self.expand(url, options ={})
-      raise MethodNotAvailableError.new("Sorry. This method is not available for given service.")
-    end
-    
-    def self.validate(options = {})
-      raise MethodNotAvailableError.new("Sorry. This method is not available for given service.")
+    def self.method_missing(method_sym, *params)
+      raise MethodNotAvailableError.new("Sorry, #{method_sym} method is not implemented/available for this service.")
     end
     
     protected
