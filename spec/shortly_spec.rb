@@ -45,10 +45,10 @@ describe "Shortly" do
       @invalid_url = "bagwanpankaj.com"
     end
     
-    it "should get a short url from googl(provided valid url)" do
+    it "should get a short url from Is.gd(provided valid url)" do
       res = Shortly::Clients::Isgd.shorten(@long_url)
       res.shorturl.should_not be_empty
-      res.shorturl.should == "http://is.gd/5V9Unz"
+      res.shorturl.should == "http://is.gd/KasWXL"
     end
     
     it "result should be an instance of OpenStruct" do
@@ -71,6 +71,7 @@ describe "Shortly" do
   
   #tests for client bitly
   describe "Bitly" do
+    
     before(:all) do
       Shortly::Clients::Bitly.login = "modulo9"
       Shortly::Clients::Bitly.apiKey = "R_0f17f32f11de7e3e953de49c6f255104"
@@ -93,6 +94,11 @@ describe "Shortly" do
       lambda do
         Shortly::Clients::Bitly.shorten(@invalid_url)
       end.should raise_error(Shortly::Errors::InvalidURIError)
+    end
+    
+    it "should expand a given short url" do
+      res = Shortly::Clients::Bitly.expand("http://bit.ly/dUdiIJ")
+      res.long_url.should == @long_url
     end
     
   end
