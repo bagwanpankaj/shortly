@@ -11,7 +11,7 @@ and shortly will be up and running. or @gem install shortly@
 
 h2. Uses
 
-Currently Shortly supports three services (Bit.ly, Goo.gl, is.gd). All supported methods have been provided for all services, so you can expect at least one method(shorten) will be available for every service.
+Currently Shortly supports three services (Bit.ly, Goo.gl, is.gd, tinyurl). All supported methods have been provided for all services, so you can expect at least one method(shorten) will be available for every service.
 
 *Bit.ly*
 
@@ -35,6 +35,11 @@ Optionally you can set apiKey and login beforehand (it would be more DRY i think
 
 @isgd = Shortly::Clients::Isgd@
 @isgd.shorten('http://justatest.com').shorturl@
+
+*Tinyurl.com*
+
+@tinyurl = Shortly::Clients::Tinyurl@
+@tinyurl.shorten('http://justatest.com').shorturl@
 
 h4. Command Line Utility
 

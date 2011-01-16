@@ -103,4 +103,35 @@ describe "Shortly" do
     
   end
   
+  #tests for client tinyurl
+  describe "TinyUrl" do
+    before(:all) do
+      @long_url = "http://bagwanpankaj.com"
+      @invalid_url = "bagwanpankaj.com"
+    end
+    
+    it "should get a short url from TinyUrl(provided valid url)" do
+      res = Shortly::Clients::Tinyurl.shorten(@long_url)
+      res.shorturl.should_not be_empty
+      res.shorturl.should == "http://tinyurl.com/6jt3pjr"
+    end
+    
+    it "result should be an instance of OpenStruct" do
+      res = Shortly::Clients::Tinyurl.shorten(@long_url)
+      res.should be_an_instance_of(OpenStruct)
+    end
+    
+    it "should throw an error on wrong uri format" do
+      lambda do
+        Shortly::Clients::Tinyurl.shorten(@invalid_url)
+      end.should raise_error(Shortly::Errors::InvalidURIError)
+    end
+    
+    it "should raise MethodNotAvailableError if method is not implemented for" do
+      lambda do
+        Shortly::Clients::Tinyurl.expand(@long_url)
+      end.should raise_error(Shortly::Errors::MethodNotAvailableError)
+    end
+  end
+  
 end

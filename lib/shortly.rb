@@ -8,6 +8,7 @@ require 'shortly/client'
 require 'shortly/clients/bitly'
 require 'shortly/clients/googl'
 require 'shortly/clients/isgd'
+require 'shortly/clients/tinyurl'
 
 module Shortly
   
