@@ -15,19 +15,25 @@ Currently Shortly supports three services (Bit.ly, Goo.gl, is.gd). All supported
 
 *Bit.ly*
 
-@
-bitly = Shortly::Clients::Bitly
-bitly.shorten('http://justatest.com', {:apiKey => 'R_your_api_key', :login => 'your_login'})
-@
+@bitly = Shortly::Clients::Bitly
+bitly.shorten('http://justatest.com', {:apiKey => 'R_your_api_key', :login => 'your_login'})@
 
 Optionally you can set apiKey and login beforehand (it would be more DRY i think if you only gonna use bitly services).
 
-@
-bitly = Shortly::Clients::Bitly
+@bitly = Shortly::Clients::Bitly
 bitly.apiKey  = 'your_api_key'
 bitly.login   = 'your_login'
-bitly.shorten('http://justatest.com')
-@
+bitly.shorten('http://justatest.com')@
+
+*Goo.gl*
+
+@googl = Shortly::Clients::Googl
+googl.shorten('http://justatest.com').short_url@
+
+*Is.gd*
+
+@isgd = Shortly::Clients::Isgd
+isgd.shorten('http://justatest.com').shorturl@
 
 h2. More Info
 
