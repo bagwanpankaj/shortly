@@ -2,21 +2,32 @@ h1. Shortly
 
 A Ruby wrapper for various url shortener services
 
-h2. Getting Started
+h2. Installation
 
 create a dependency in your Gemfile
-
-@gem 'shortly'@
-
-then run
-
+@gem 'shortly'@  then run
 @bundle install@
-
-and shortly will be up and running.
+and shortly will be up and running. or @gem install shortly@
 
 h2. Uses
 
-Coming Shortly(or see the code)
+Currently Shortly supports three services (Bit.ly, Goo.gl, is.gd). All supported methods have been provided for all services, so you can expect at least one method(shorten) will be available for every service.
+
+*Bit.ly*
+
+@
+bitly = Shortly::Clients::Bitly
+bitly.shorten('http://justatest.com', {:apiKey => 'R_your_api_key', :login => 'your_login'})
+@
+
+Optionally you can set apiKey and login beforehand (it would be more DRY i think if you only gonna use bitly services).
+
+@
+bitly = Shortly::Clients::Bitly
+bitly.apiKey  = 'your_api_key'
+bitly.login   = 'your_login'
+bitly.shorten('http://justatest.com')
+@
 
 h2. More Info
 
