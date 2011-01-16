@@ -20,20 +20,36 @@ bitly.shorten('http://justatest.com', {:apiKey => 'R_your_api_key', :login => 'y
 
 Optionally you can set apiKey and login beforehand (it would be more DRY i think if you only gonna use bitly services).
 
-@bitly = Shortly::Clients::Bitly
-bitly.apiKey  = 'your_api_key'
-bitly.login   = 'your_login'
-bitly.shorten('http://justatest.com')@
+@bitly = Shortly::Clients::Bitly@
+@bitly.apiKey  = 'your_api_key'@
+@bitly.login   = 'your_login'@
+@bitly.shorten('http://justatest.com').url@
+@bitly.expand('http://bit.ly/imshort').long_url@
 
 *Goo.gl*
 
-@googl = Shortly::Clients::Googl
-googl.shorten('http://justatest.com').short_url@
+@googl = Shortly::Clients::Googl@
+@googl.shorten('http://justatest.com').short_url@
 
 *Is.gd*
 
-@isgd = Shortly::Clients::Isgd
-isgd.shorten('http://justatest.com').shorturl@
+@isgd = Shortly::Clients::Isgd@
+@isgd.shorten('http://justatest.com').shorturl@
+
+h4. Command Line Utility
+
+Shortly also provides command line utility. See some uses below.
+@shortly 'http://shortme.com/'@
+
+By default it uses Googl to short urls but you can specify which service to use. Type @shortly -h@ for more info
+@shortly 'http://shortme.com/' -s bitly -l '<your-login>' -p '<your-apiKey>' -m method-to-use@ 
+
+here are options and there possible values:
+|*Options*|*What value do they take*|
+|-s or --service| Service to use(e.g. bitly, isgd(default))|
+|-m or --method| Method to use(e.g. expand or shorten(default))|
+|-l or --login| Login credential(required for bitly)|
+|-p or --apiKey| API Key credentials (for bitly only)|
 
 h2. More Info
 
