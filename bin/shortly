@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+STDOUT.sync = true
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'rubygems'
+require 'optparse'
+require 'shortly'
+
+ORIG_ARGV = ARGV.dup
+
+services = {:googl => Shortly::Clients::Googl, :isgd => Shortly::Clients::Isgd, :bitly => Shortly::Clients::Bitly}
+
+options = {:service => :googl, :method => :shorten}
+
+opts = OptionParser.new do |opts|
+  opts.banner = <<-EOS
+  Usage:
+    shortly url -s service -m method -l login -p apikey
+        
+    Options:
+  EOS
+
+  opts.on("-s", "--service SERVICE", "Service to be used in shortner(e.g. bitly, googl(default), isgd)") do |service|
+    options[:service] = service.to_sym
+  end
+
+  opts.on("-l", "--login LOGIN", "Login creadential (for bitly only)") do |login|
+    options[:login] = login
+  end
+  
+  opts.on("-p", "--apikey APIKEY", "API Key credentials (for bitly only)") do |apikey|
+    options[:apikey] = apikey
+  end
+
+  opts.on("-u", "--url URL", "The long/short URL on which operation is to be performed.") do |url|
+    options[:url] = url
+  end
+  
+  opts.on("-m", "--method METHOD", "method to be used(e.g. shorten(default), expand)") do |method|
+    options[:method] = method.to_sym
+  end
+  
+  opts.on("-v", "--version", "Version of shortly") do
+    options[:version] = true
+  end  
+end
+
+opts.parse!
+
+if options[:version]
+  abort("Version: " + Shortly.version)
+end
+
+options[:url] = ARGV.first if ARGV.length == 1
+
+#validate for bitly services
+if options[:service] == :bitly
+  abort("login is required for Bitly Services") unless options[:login]
+  abort("API Key is required for Bitly Services") unless options[:apikey]
+end
+
+unless options[:url]
+  abort("Please provide atleast a valid URL. To see help type --help or -h")
+end
+
+command = services[options[:service]]
+
+if options[:service] == :bitly
+  command.login = options[:login]
+  command.apiKey = options[:apikey]
+end
+
+response = command.send(options[:method], options[:url])
+
+output = case options[:service]
+   when :bitly then response.url || response.long_url
+   when :googl then response.short_url
+   when :isgd then response.shorturl
+   else abort("Something went wrong. Please raise an issue on Github")
+end
+
+puts output

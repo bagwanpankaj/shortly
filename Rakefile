@@ -19,7 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Ruby Wrapper for different Url Shortner Services Ruby Wrapper}
   gem.email = "bagwanpankaj@gmail.com"
   gem.authors = ["Bagwan Pankaj"]
-  gem.files = Dir.glob('lib/**/**/*.rb')
+  gem.executables = ["shortly"]
+  gem.files = Dir.glob('lib/**/**/*.rb') + Dir.glob('bin/**')
 end
 Jeweler::RubygemsDotOrgTasks.new
 

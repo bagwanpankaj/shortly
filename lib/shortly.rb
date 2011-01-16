@@ -8,3 +8,11 @@ require 'shortly/client'
 require 'shortly/clients/bitly'
 require 'shortly/clients/googl'
 require 'shortly/clients/isgd'
+
+module Shortly
+  
+  def self.version
+    File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
+  end
+  
+end
