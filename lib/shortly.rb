@@ -16,4 +16,8 @@ module Shortly
     File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
   end
   
+  def self.active_services
+    Client.registered
+  end
+  
 end

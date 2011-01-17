@@ -25,12 +25,14 @@ module Shortly
     
     class Bitly < Client
       
+      self.register!
+      
       class << self
         #apiKey = "<your apiKey>"
         #login = "<your login>"
         attr_accessor :login, :apiKey
       end
-      
+
       base_uri 'api.bit.ly'
       
       #shorts provided url by making call to bitly api with given options.      

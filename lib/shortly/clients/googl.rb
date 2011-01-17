@@ -25,6 +25,7 @@ module Shortly
     
     class Googl < Client
       
+      self.register!
       base_uri 'goo.gl'
       
       #shorts provided url by making call to goo.gl api with given options.      

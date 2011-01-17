@@ -25,6 +25,7 @@ module Shortly
     
     class Tinyurl < Client
       
+      self.register!
       base_uri 'tinyurl.com'
       
       #shorts provided url by making call to tinyurl api with given options.      

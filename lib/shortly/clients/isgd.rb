@@ -25,6 +25,7 @@ module Shortly
     
     class Isgd < Client
       
+      self.register!
       base_uri 'is.gd'
       
       #shorts provided url by making call to is.gd api with given options.      

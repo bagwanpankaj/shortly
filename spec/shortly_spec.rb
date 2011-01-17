@@ -48,7 +48,7 @@ describe "Shortly" do
     it "should get a short url from Is.gd(provided valid url)" do
       res = Shortly::Clients::Isgd.shorten(@long_url)
       res.shorturl.should_not be_empty
-      res.shorturl.should == "http://is.gd/KasWXL"
+      # res.shorturl.should == "http://is.gd/KasWXL"
     end
     
     it "result should be an instance of OpenStruct" do
@@ -131,6 +131,68 @@ describe "Shortly" do
       lambda do
         Shortly::Clients::Tinyurl.expand(@long_url)
       end.should raise_error(Shortly::Errors::MethodNotAvailableError)
+    end
+  end
+  
+  describe "Client" do
+    
+    before(:all) do
+      @valid_uri = "http://bagwanpankaj.com"
+      @invalid_uri = "someinveliduri" 
+    end
+    
+    it "should include HTTParty" do
+      Shortly::Client.included_modules.should include HTTParty
+    end
+    
+    it "should include Shortly::Errors" do
+      Shortly::Client.included_modules.should include Shortly::Errors
+    end
+    
+    it "should include Shortly::Helper" do
+      Shortly::Client.included_modules.should include Shortly::Helper
+    end
+    
+    it "should respond to resitered class variable" do
+      Shortly::Client.class_variables.should include "@@registered"
+    end
+    
+    it "should respond to register/valid_uri? and registered methods" do
+      Shortly::Client.should respond_to :register!
+      Shortly::Client.should respond_to :registered
+      Shortly::Client.should respond_to :valid_uri?
+    end
+    
+    it "should test a uri is valid or not" do
+      Shortly::Client.valid_uri?(@valid_uri).should be true
+      Shortly::Client.valid_uri?(@invalid_uri).should_not be true
+    end
+    
+  end
+  
+  describe "Misc" do
+    
+    describe "Errors" do
+      
+      it "should have various error classes implemented" do
+        Shortly::Errors::ShortlyError.superclass.name.should == "StandardError"
+        Shortly::Errors::ShortlyArgumentError.superclass.name.should == "ArgumentError"
+        Shortly::Errors::InvalidURIError.superclass.name.should == "Shortly::Errors::ShortlyError"
+        Shortly::Errors::NotAuthorizedError.superclass.name.should == "Shortly::Errors::ShortlyArgumentError"
+        Shortly::Errors::MethodNotAvailableError.superclass.name.should == "Shortly::Errors::ShortlyError"
+      end
+      
+    end
+    
+    describe "Shortly" do
+      it "should return current version of gem" do
+        Shortly.version.should == File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
+      end
+      
+      it "should return all registered services" do
+        Shortly.active_services.should == Shortly::Client.registered
+      end
+      
     end
   end
   

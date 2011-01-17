@@ -11,7 +11,7 @@ and shortly will be up and running. or @gem install shortly@
 
 h2. Uses
 
-Currently Shortly supports three services (Bit.ly, Goo.gl, is.gd, tinyurl). All supported methods have been provided for all services, so you can expect at least one method(shorten) will be available for every service.
+Currently Shortly supports three services (Bit.ly, Goo.gl, is.gd, tinyurl) Please do cross check by running Shortly.active_services. All supported methods have been provided for all services, so you can expect at least one method(shorten) will be available for every service.
 
 *Bit.ly*
 

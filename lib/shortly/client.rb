@@ -29,11 +29,22 @@ module Shortly
     
     base_uri ''
     
+    @@registered = []
+    
     def self.method_missing(method_sym, *params)
       raise MethodNotAvailableError.new("Sorry, #{method_sym} method is not implemented/available for this service.")
     end
     
     protected
+    
+    def self.register!
+      @@registered = [] unless @@registered
+      @@registered << self.name.to_sym
+    end
+    
+    def self.registered
+      @@registered
+    end
     
     def self.valid_uri?(url)
       !!(url =~ URI::regexp)
