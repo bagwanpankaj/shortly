@@ -37,25 +37,32 @@ module Shortly
       
       #shorts provided url by making call to bitly api with given options.      
       def self.shorten(url, options = {})
-        raise InvalidURIError.new("provided URI is invalid.") unless valid_uri?(url)
-        options = {:login => self.login, :apiKey => self.apiKey, :longUrl => url, :format => "json"}.merge(options) 
-        response = get("/v3/shorten", {:query => options})
+        validate_uri!(url)
+        options = {:login => self.login, :apiKey => self.apiKey,:longUrl => url, :format => "json"}.merge(options)
+        validate!(options)
+        response = get("/v3/shorten", get_params(options))
         OpenStruct.new(response["data"])
       end
       
       #expands provided url by making call to bitly api with given options.      
-      def self.expand(short_url, options ={})
-        raise InvalidURIError.new("provided URI is invalid.") unless valid_uri?(short_url)
+      def self.expand(short_url, options = {})
+        validate_uri!(short_url)
         options = {:login => self.login, :apiKey => self.apiKey, :shortUrl => short_url, :format => "json"}.merge(options) 
-        response = get("/v3/expand", {:query => options})
+        response = get("/v3/expand", get_params(options))
         OpenStruct.new(response["data"]["expand"].first)
       end
       
       #validates given login(as x_login) and apiKey (as x_api_key)
       #options = {:x_login => xlogin, :x_api_key => x_api_key, :apiKey => apiKey, :login => login, :format => "json"}
       def self.validate(options = {})
-        response = get("/v3/validate", {:query => options})
+        response = get("/v3/validate", get_params(options))
         OpenStruct.new(response["data"])
+      end
+      
+      private
+      
+      def self.validate!(options)
+        raise NotAuthorizedError.new("Credentials required(login and apiKey)") unless options.authenticable?
       end
           
     end

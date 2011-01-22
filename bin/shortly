@@ -5,6 +5,7 @@ STDOUT.sync = true
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'rubygems'
+require 'json'
 require 'optparse'
 require 'shortly'
 
@@ -13,16 +14,17 @@ ORIG_ARGV = ARGV.dup
 services = {
               :googl => Shortly::Clients::Googl, 
               :isgd => Shortly::Clients::Isgd, 
+              :vgd => Shortly::Clients::Vgd,
               :bitly => Shortly::Clients::Bitly,
               :tinyurl => Shortly::Clients::Tinyurl
             }
 
-options = {:service => :googl, :method => :shorten}
+options = {:service => :googl, :method => :shorten} #defaults to be used
 
 opts = OptionParser.new do |opts|
   opts.banner = <<-EOS
   Usage:
-    shortly url -s service -m method -l login -p apikey
+    shortly url [-s service] [-m method] [-l login] [-p apikey]
         
     Options:
   EOS
@@ -55,7 +57,7 @@ end
 opts.parse!
 
 if options[:version]
-  abort("Version: " + Shortly.version)
+  abort("Shortly: v" + Shortly.version)
 end
 
 options[:url] = ARGV.first if ARGV.length == 1
@@ -80,9 +82,23 @@ end
 response = command.send(options[:method], options[:url])
 
 output = case options[:service]
-  when :bitly then response.url || response.long_url
-  when :googl then response.short_url
+  when :bitly
+    case options[:method]
+      when :shorten
+        response.url
+      else response.long_url
+    end
+  when :googl
+    case options[:method]
+      when :shorten
+        response.shortUrl
+      when :expand
+        response.longUrl
+      else
+        response.analytics.to_json
+    end
   when :isgd then response.shorturl
+  when :vgd then response.shorturl
   when :tinyurl then response.shorturl
   else abort("Something went wrong. Please raise an issue on Github")
 end

@@ -26,12 +26,45 @@ module Shortly
     class Googl < Client
       
       self.register!
-      base_uri 'goo.gl'
+      class << self
+        #apiKey = "<your apiKey>"
+        attr_accessor :apiKey
+      end
+      
+      base_uri 'https://www.googleapis.com' #'goo.gl/api/shorten'
+      headers "Content-Type" => "application/json"
       
       #shorts provided url by making call to goo.gl api with given options.      
       def self.shorten(url, options = {})
-        raise InvalidURIError.new("provided URI is invalid.") unless valid_uri?(url)
-        response = post("/api/shorten", {:body => {:url => url}})
+        validate_uri!(url)
+        response = post(relative_path_with_key(options), post_params({:longUrl => url}.to_json))
+        OpenStruct.new(response.merge(:shortUrl => response["id"]))
+      end
+      
+      def self.expand(url, options ={})
+        validate_uri!(url)
+        info(options.merge(:shortUrl => url))
+      end
+      
+      def self.analytics(url, options ={})
+        validate_uri!(url)
+        info(options.merge(:shortUrl => url), true)
+      end
+      
+      private
+      
+      def self.relative_path
+        "/urlshortener/v1/url"
+      end
+      
+      def self.relative_path_with_key(options)
+        self.apiKey ? [relative_path, {:key => self.apiKey}.to_params].join("?") : relative_path
+      end
+      
+      def self.info(options, full = false)
+        options.merge!({:projection => 'FULL'}) if full
+        options.merge!({:key => self.apiKey}) if !!self.apiKey
+        response = get(relative_path, get_params(options))
         OpenStruct.new(response)
       end
       

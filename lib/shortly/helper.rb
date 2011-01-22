@@ -23,10 +23,31 @@ module Shortly
   
   module Helper
     
-    class Hash
+    module MonkeyPatches
       
-      def authenticable?
-        [:login, :apiKey].all?{|k| self.key?(k)} && !self.values.any?(&:empty?)
+      def self.activate!
+        Hash.send(:include, MonkeyHash)
+        Object.send(:include, MonkeyObject)
+      end
+      
+      module MonkeyHash
+      
+        def authenticable?
+          [:login, :apiKey].all?{|k| self.key?(k)} && !self.values.any?(&:blank?)
+        end
+      
+      end
+      
+      module MonkeyObject
+        
+        def blank?
+          instance_of? Array ? empty? : nil?
+        end
+        
+        def present?
+          !blank?
+        end
+        
       end
       
     end

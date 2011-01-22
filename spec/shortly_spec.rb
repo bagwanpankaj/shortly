@@ -5,99 +5,143 @@ describe "Shortly" do
   #tests for client googl
   describe "Googl" do
     before(:all) do
-      @long_url = "http://bagwanpankaj.com"
+      @long_url = "http://bagwanpankaj.com/"
       @invalid_url = "bagwanpankaj.com"
+      @short_url = "http://goo.gl/17pbM"
+      @googl = Shortly::Clients::Googl
     end
     
     it "should get a short url from googl(provided valid url)" do
-      res = Shortly::Clients::Googl.shorten(@long_url)
-      res.short_url.should_not be_empty
-      res.short_url.should == "http://goo.gl/17pbM"
+      res = @googl.shorten(@long_url)
+      res.shortUrl.should_not be_empty
+      res.shortUrl.should == @short_url
     end
     
-    it "result should be an instance of OpenStruct" do
-      res = Shortly::Clients::Googl.shorten(@long_url)
+    it "result of shorten should be an instance of OpenStruct" do
+      res = @googl.shorten(@long_url)
       res.should be_an_instance_of(OpenStruct)
     end
     
-    it "should not be added to history(by default)" do
-      res = Shortly::Clients::Googl.shorten(@long_url)
-      res.added_to_history.should be_an_instance_of(FalseClass)
+    it "should get a long url back for given valid short url" do
+      res = @googl.expand(@short_url)
+      res.longUrl.should_not be_empty
+      res.longUrl.should == @long_url
+    end
+    
+    it "result of expand should be an instance of OpenStruct" do
+      res = @googl.expand(@short_url)
+      res.should be_an_instance_of(OpenStruct)
+    end
+    
+    it "should give analytics for given short url" do
+      res = @googl.analytics(@short_url)
+      res.analytics.should_not be_empty
+      res.analytics.should be_an_instance_of(Hash)
     end
     
     it "should throw an error on wrong uri format" do
       lambda do
-        Shortly::Clients::Googl.shorten(@invalid_url)
+        @googl.shorten(@invalid_url)
       end.should raise_error(Shortly::Errors::InvalidURIError)
     end
     
-    it "should raise MethodNotAvailableError if method is not implemented for" do
-      lambda do
-        Shortly::Clients::Googl.expand(@long_url)
-      end.should raise_error(Shortly::Errors::MethodNotAvailableError)
-    end
   end
   
   #tests for client isgd
   describe "Isgd" do
     before(:all) do
+      @isgd = Shortly::Clients::Isgd
       @long_url = "http://bagwanpankaj.com"
       @invalid_url = "bagwanpankaj.com"
     end
     
     it "should get a short url from Is.gd(provided valid url)" do
-      res = Shortly::Clients::Isgd.shorten(@long_url)
+      res = @isgd.shorten(@long_url)
       res.shorturl.should_not be_empty
-      # res.shorturl.should == "http://is.gd/KasWXL"
+      res.shorturl.should == @isgd.shorten(@long_url).shorturl
     end
     
     it "result should be an instance of OpenStruct" do
-      res = Shortly::Clients::Isgd.shorten(@long_url)
+      res = @isgd.shorten(@long_url)
       res.should be_an_instance_of(OpenStruct)
     end
     
     it "should throw an error on wrong uri format" do
       lambda do
-        Shortly::Clients::Isgd.shorten(@invalid_url)
+        @isgd.shorten(@invalid_url)
       end.should raise_error(Shortly::Errors::InvalidURIError)
     end
     
     it "should raise MethodNotAvailableError if method is not implemented for" do
       lambda do
-        Shortly::Clients::Isgd.expand(@long_url)
+        @isgd.expand(@long_url)
       end.should raise_error(Shortly::Errors::MethodNotAvailableError)
     end
   end
+  
+  #tests for client vgd
+   describe "Vgd" do
+     before(:all) do
+       @vgd = Shortly::Clients::Vgd
+       @long_url = "http://bagwanpankaj.com"
+       @invalid_url = "bagwanpankaj.com"
+     end
+
+     it "should get a short url from Is.gd(provided valid url)" do
+       res = @vgd.shorten(@long_url)
+       res.shorturl.should_not be_empty
+       res.shorturl.should == @vgd.shorten(@long_url).shorturl
+     end
+
+     it "result should be an instance of OpenStruct" do
+       res = @vgd.shorten(@long_url)
+       res.should be_an_instance_of(OpenStruct)
+     end
+
+     it "should throw an error on wrong uri format" do
+       lambda do
+         @vgd.shorten(@invalid_url)
+       end.should raise_error(Shortly::Errors::InvalidURIError)
+     end
+
+     it "should raise MethodNotAvailableError if method is not implemented for" do
+       lambda do
+         @vgd.expand(@long_url)
+       end.should raise_error(Shortly::Errors::MethodNotAvailableError)
+     end
+   end
   
   #tests for client bitly
   describe "Bitly" do
     
     before(:all) do
-      Shortly::Clients::Bitly.login = "modulo9"
-      Shortly::Clients::Bitly.apiKey = "R_0f17f32f11de7e3e953de49c6f255104"
+      @bitly = Shortly::Clients::Bitly
+      @bitly.login = "modulo9"
+      @bitly.apiKey = "R_0f17f32f11de7e3e953de49c6f255104"
       @long_url = "http://bagwanpankaj.com"
       @invalid_url = "bagwanpankaj.com"
+      @short_url = "http://bit.ly/dUdiIJ"
     end
     
     it "should get a short url from googl(provided valid url)" do
-      res = Shortly::Clients::Bitly.shorten(@long_url)
+      res = @bitly.shorten(@long_url)
       res.url.should_not be_empty
-      res.url.should == "http://bit.ly/dUdiIJ"
+      res.url.should == @short_url
     end
     
     it "result should be an instance of OpenStruct" do
-      res = Shortly::Clients::Bitly.shorten(@long_url)
+      res = @bitly.shorten(@long_url)
       res.should be_an_instance_of(OpenStruct)
     end
     
     it "should throw an error on wrong uri format" do
       lambda do
-        Shortly::Clients::Bitly.shorten(@invalid_url)
+        @bitly.shorten(@invalid_url)
       end.should raise_error(Shortly::Errors::InvalidURIError)
     end
     
     it "should expand a given short url" do
-      res = Shortly::Clients::Bitly.expand("http://bit.ly/dUdiIJ")
+      res = @bitly.expand("http://bit.ly/dUdiIJ")
       res.long_url.should == @long_url
     end
     

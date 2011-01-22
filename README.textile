@@ -29,12 +29,19 @@ Optionally you can set apiKey and login beforehand (it would be more DRY i think
 *Goo.gl*
 
 @googl = Shortly::Clients::Googl@
-@googl.shorten('http://justatest.com').short_url@
+@googl.shorten('http://justatest.com').shortUrl@
+@googl.expand('http://goo.gl/shrt').longUrl@
+@googl.analytics('http://goo.gl/shrt').analytics@
 
 *Is.gd*
 
 @isgd = Shortly::Clients::Isgd@
 @isgd.shorten('http://justatest.com').shorturl@
+
+*V.gd*
+
+@vgd = Shortly::Clients::Vgd@
+@vgd.shorten('http://justatest.com').shorturl@
 
 *Tinyurl.com*
 
@@ -52,10 +59,19 @@ By default it uses Googl to short urls but you can specify which service to use.
 here are options and there possible values:
 
 | *Options* | *What value do they take* |
-| -s or --service | Service to use(e.g. bitly, isgd(default)) |
-| -m or --method | Method to use(e.g. expand or shorten(default)) |
+| -s or --service | Service to use(e.g. bitly, isgd(default googl)) |
+| -m or --method | Method to use(e.g. expand or shorten or analytics(default shorten)) |
 | -l or --login | Login credential(required for bitly) |
-| -p or --apiKey | API Key credentials (for bitly only) |
+| -p or --apiKey | API Key credentials (for bitly and googl(optional) only) |
+
+h5. Some more examples:
+
+* Google analytics
+@shortly 'http://averylong.url/that/can/frustate?you=many&times=true' -p my_api_key -m analytics@
+spits formatted json at CLI
+
+* Bitly
+@shortly 'http://bit.ly/shrt -s bitly -p my_api_key -l my_login -m expand@
 
 h2. More Info
 

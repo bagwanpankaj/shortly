@@ -20,7 +20,8 @@ Jeweler::Tasks.new do |gem|
   gem.email = "bagwanpankaj@gmail.com"
   gem.authors = ["Bagwan Pankaj"]
   gem.executables = ["shortly"]
-  gem.files = Dir.glob('lib/**/**/*.rb') + Dir.glob('bin/**')
+  # gem.files = Dir.glob('lib/**/**/*.rb') + Dir.glob('bin/**')
+  gem.files = Dir['lib/**/**.rb', 'VERSION', 'bin/**', 'LICENSE.txt']
 end
 Jeweler::RubygemsDotOrgTasks.new
 

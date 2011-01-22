@@ -23,19 +23,11 @@ module Shortly
   
   module Clients
     
-    class Isgd < Client
+    class Vgd < Isgd
       
       self.register!
-      base_uri 'is.gd'
-      
-      #shorts provided url by making call to is.gd api with given options.      
-      def self.shorten(url, options = {})
-        validate_uri!(url)
-        options = {:format => "json", :url => url}.merge(options)
-        response = get("/create.php", get_params(options))
-        OpenStruct.new(response)
-      end
-      
+      base_uri 'v.gd'
+            
     end
   end
 end

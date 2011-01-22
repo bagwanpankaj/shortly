@@ -31,23 +31,36 @@ module Shortly
     
     @@registered = []
     
-    def self.method_missing(method_sym, *params)
+    def self.method_missing(method_sym, *params) #:nodoc
       raise MethodNotAvailableError.new("Sorry, #{method_sym} method is not implemented/available for this service.")
     end
     
     protected
     
-    def self.register!
+    def self.register! #:nodoc
       @@registered = [] unless @@registered
       @@registered << self.name.to_sym
     end
     
-    def self.registered
+    def self.registered #:nodoc
       @@registered
     end
     
+    def self.validate_uri!(url)
+      raise InvalidURIError.new("provided URI is invalid.") unless valid_uri?(url)
+    end
+    
+    #returns a uri is valid or not
     def self.valid_uri?(url)
       !!(url =~ URI::regexp)
+    end
+    
+    def self.post_params(options = {})
+      {:body => options}
+    end
+    
+    def self.get_params(options = {})
+      {:query => options}
     end
     
   end

@@ -30,8 +30,8 @@ module Shortly
       
       #shorts provided url by making call to tinyurl api with given options.      
       def self.shorten(url, options = {})
-        raise InvalidURIError.new("provided URI is invalid.") unless valid_uri?(url)
-        response = post("/api-create.php", {:body => {:url => url}}).chomp
+        validate_uri!(url)
+        response = post("/api-create.php", post_params({:url => url})).chomp
         OpenStruct.new({:shorturl => response})
       end
       

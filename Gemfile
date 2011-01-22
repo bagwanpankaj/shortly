@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem "httparty"
+gem 'json'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

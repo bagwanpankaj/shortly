@@ -1,5 +1,6 @@
 require 'uri'
 require 'ostruct'
+require 'json'
 require 'httparty'
 require 'shortly'
 require 'shortly/helper'
@@ -9,15 +10,20 @@ require 'shortly/clients/bitly'
 require 'shortly/clients/googl'
 require 'shortly/clients/isgd'
 require 'shortly/clients/tinyurl'
+require 'shortly/clients/vgd'
 
 module Shortly
   
-  def self.version
+  #gem version
+  def self.version #:nodoc
     File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
   end
   
+  #returns active services
   def self.active_services
     Client.registered
   end
+  
+  Helper::MonkeyPatches.activate!
   
 end
