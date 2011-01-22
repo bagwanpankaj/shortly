@@ -13,6 +13,7 @@ ORIG_ARGV = ARGV.dup
 services = {
               :googl => Shortly::Clients::Googl, 
               :isgd => Shortly::Clients::Isgd, 
+              :lggd => Shortly::Clients::Lggd, 
               :bitly => Shortly::Clients::Bitly,
               :tinyurl => Shortly::Clients::Tinyurl
             }
@@ -77,12 +78,17 @@ if options[:service] == :bitly
   command.apiKey = options[:apikey]
 end
 
+if options[:service] == :lggd
+  command.apiKey = options.delete(:apikey)
+end
+
 response = command.send(options[:method], options[:url])
 
 output = case options[:service]
   when :bitly then response.url || response.long_url
   when :googl then response.short_url
   when :isgd then response.shorturl
+  when :lggd then response.shortUrl
   when :tinyurl then response.shorturl
   else abort("Something went wrong. Please raise an issue on Github")
 end
