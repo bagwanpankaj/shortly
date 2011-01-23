@@ -33,6 +33,12 @@ Optionally you can set apiKey and login beforehand (it would be more DRY i think
 @googl.expand('http://goo.gl/shrt').longUrl@
 @googl.analytics('http://goo.gl/shrt').analytics@
 
+*Lggd* (Credit 'Steve Price (steveprice67)'. See Credits section)
+
+@lggd = Shortly::Clients::Lggd@
+@lggd.apiKey = '<api-key>'@
+@lggd.shorten('http://justatest.com').shortUrl@
+
 *Is.gd*
 
 @isgd = Shortly::Clients::Isgd@
@@ -72,6 +78,10 @@ spits formatted json at CLI
 
 * Bitly
 @shortly 'http://bit.ly/shrt -s bitly -p my_api_key -l my_login -m expand@
+
+h2. Credits
+
+* "Steve Price(steveprice67)":https://github.com/steveprice67
 
 h2. More Info
 
