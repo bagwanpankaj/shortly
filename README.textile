@@ -81,7 +81,7 @@ spits formatted json at CLI
 
 h2. Credits
 
-* "Steve Price(steveprice67)":https://github.com/steveprice67
+* "Steve Price(steveprice67)":https://github.com/steveprice67 (For implementing Lggd service support)
 
 h2. More Info
 

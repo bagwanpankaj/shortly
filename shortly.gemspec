@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shortly}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bagwan Pankaj"]
-  s.date = %q{2011-01-22}
+  s.date = %q{2011-01-23}
   s.default_executable = %q{shortly}
   s.description = %q{Ruby Wrapper for different Url Shortner Services Ruby Wrapper}
   s.email = %q{bagwanpankaj@gmail.com}
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/shortly/clients/bitly.rb",
     "lib/shortly/clients/googl.rb",
     "lib/shortly/clients/isgd.rb",
+    "lib/shortly/clients/lggd.rb",
     "lib/shortly/clients/rubyurl.rb",
     "lib/shortly/clients/tinyurl.rb",
     "lib/shortly/clients/vgd.rb",
