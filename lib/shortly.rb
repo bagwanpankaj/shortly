@@ -9,6 +9,7 @@ require 'shortly/client'
 require 'shortly/clients/bitly'
 require 'shortly/clients/googl'
 require 'shortly/clients/isgd'
+require 'shortly/clients/lggd'
 require 'shortly/clients/tinyurl'
 require 'shortly/clients/vgd'
 

@@ -15,6 +15,7 @@ services = {
               :googl => Shortly::Clients::Googl, 
               :isgd => Shortly::Clients::Isgd, 
               :vgd => Shortly::Clients::Vgd,
+              :lggd => Shortly::Clients::Lggd, 
               :bitly => Shortly::Clients::Bitly,
               :tinyurl => Shortly::Clients::Tinyurl
             }
@@ -71,12 +72,17 @@ end
 unless options[:url]
   abort("Please provide atleast a valid URL. To see help type --help or -h")
 end
+unless services.include?(options[:service])
+  abort("#{options[:service]} sevice is not supported currently.")
+end
 
 command = services[options[:service]]
 
 if options[:service] == :bitly
-  command.login = options[:login]
-  command.apiKey = options[:apikey]
+  command.login = options.delete(:login)
+  command.apiKey = options.delete(:apikey)
+elsif options[:service] == :lggd
+  command.apiKey = options.delete(:apikey)
 end
 
 response = command.send(options[:method], options[:url])
@@ -99,6 +105,7 @@ output = case options[:service]
     end
   when :isgd then response.shorturl
   when :vgd then response.shorturl
+  when :lggd then response.shortUrl
   when :tinyurl then response.shorturl
   else abort("Something went wrong. Please raise an issue on Github")
 end

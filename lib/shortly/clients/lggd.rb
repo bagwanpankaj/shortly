@@ -20,38 +20,35 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module Shortly
-  
-  module Helper
-    
-    module MonkeyPatches
-      
-      def self.activate!
-        Hash.send(:include, MonkeyHash)
-        Object.send(:include, MonkeyObject)
+
+  module Clients
+
+    class Lggd < Client
+
+      self.register!
+
+      class << self
+        attr_accessor :apiKey
+      end
+
+      base_uri 'lg.gd'
+
+      #shorts provided url by making call to is.gd api with given options.      
+      def self.shorten(url, options = {})
+        validate_uri!(url)
+        options = {:apiKey => self.apiKey, :format => :json, :longUrl => url}.merge(options)
+        validate!(options)
+        response = get("/shorten", get_params(options))
+        OpenStruct.new(response['results'][url])
       end
       
-      module MonkeyHash
+      private
       
-        def authenticable?(*args)
-          args.all?{|k| self.key?(k)} && !self.values.any?(&:blank?)
-        end
-      
+      def self.validate!(options)
+        raise NotAuthorizedError.new("Credentials required(apiKey)") unless 
+          options.authenticable?(:apiKey)
       end
-      
-      module MonkeyObject
-        
-        def blank?
-          instance_of? Array ? empty? : nil?
-        end
-        
-        def present?
-          !blank?
-        end
-        
-      end
-      
+
     end
-    
   end
-  
 end

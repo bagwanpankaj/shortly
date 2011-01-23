@@ -47,7 +47,8 @@ module Shortly
       #expands provided url by making call to bitly api with given options.      
       def self.expand(short_url, options = {})
         validate_uri!(short_url)
-        options = {:login => self.login, :apiKey => self.apiKey, :shortUrl => short_url, :format => "json"}.merge(options) 
+        options = {:login => self.login, :apiKey => self.apiKey, :shortUrl => short_url, :format => "json"}.merge(options)
+        validate!(options) 
         response = get("/v3/expand", get_params(options))
         OpenStruct.new(response["data"]["expand"].first)
       end
@@ -62,7 +63,8 @@ module Shortly
       private
       
       def self.validate!(options)
-        raise NotAuthorizedError.new("Credentials required(login and apiKey)") unless options.authenticable?
+        raise NotAuthorizedError.new("Credentials required(login and apiKey)") unless 
+          options.authenticable?(:login, :apiKey)
       end
           
     end
