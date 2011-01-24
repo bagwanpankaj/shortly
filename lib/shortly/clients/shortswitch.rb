@@ -23,7 +23,7 @@ module Shortly
 
   module Clients
 
-    class Lggd < Client
+    class ShortSwitch < Client
 
       self.register!
 
@@ -31,7 +31,7 @@ module Shortly
         attr_accessor :apiKey
       end
 
-      base_uri 'lg.gd'
+      base_uri 'api.shortswitch.com'
 
       #shorts provided url by making call to is.gd api with given options.      
       def self.shorten(url, options = {})

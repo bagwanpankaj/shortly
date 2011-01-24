@@ -214,30 +214,30 @@ describe "Shortly" do
     end
   end
   
-  #tests for client lg.gd
-  describe "Lggd" do
+  #tests for client ShortSwitch
+  describe "ShortSwitch" do
     
     before(:all) do
-      Shortly::Clients::Lggd.apiKey = "87171b48ff5487f8817021667298e059081d7cc0"
+      Shortly::Clients::ShortSwitch.apiKey = "87171b48ff5487f8817021667298e059081d7cc0"
       @long_url = "http://google.com"
       @invalid_url = "bagwanpankaj.com"
       @short_url = "http://demo.shortswitch.com/1"
     end
     
-    it "should get a short url from lg.gd(provided valid url)" do
-      res = Shortly::Clients::Lggd.shorten(@long_url)
+    it "should get a short url from ShortSwitch(provided valid url)" do
+      res = Shortly::Clients::ShortSwitch.shorten(@long_url)
       res.shortUrl.should_not be_empty
       res.shortUrl.should == @short_url
     end
     
     it "result should be an instance of OpenStruct" do
-      res = Shortly::Clients::Lggd.shorten(@long_url)
+      res = Shortly::Clients::ShortSwitch.shorten(@long_url)
       res.should be_an_instance_of(OpenStruct)
     end
     
     it "should throw an error on wrong uri format" do
       lambda do
-        Shortly::Clients::Lggd.shorten(@invalid_url)
+        Shortly::Clients::ShortSwitch.shorten(@invalid_url)
       end.should raise_error(Shortly::Errors::InvalidURIError)
     end
     

@@ -15,7 +15,8 @@ services = {
               :googl => Shortly::Clients::Googl, 
               :isgd => Shortly::Clients::Isgd, 
               :vgd => Shortly::Clients::Vgd,
-              :lggd => Shortly::Clients::Lggd, 
+              :lggd => Shortly::Clients::ShortSwitch, 
+              :shortswitch => Shortly::Clients::ShortSwitch,
               :bitly => Shortly::Clients::Bitly,
               :jmp => Shortly::Clients::Jmp,
               :tinyurl => Shortly::Clients::Tinyurl
@@ -83,7 +84,7 @@ command = services[options[:service]]
 if [:bitly, :jmp].include? options[:service]
   command.login = options.delete(:login)
   command.apiKey = options.delete(:apikey)
-elsif [:lggd, :googl].include? options[:service]
+elsif [:lggd, :googl, :shortswitch].include? options[:service]
   command.apiKey = options.delete(:apikey)
 end
 
@@ -107,7 +108,7 @@ output = case options[:service]
     end
   when :isgd, :vgd then response.shorturl
   # when :vgd then response.shorturl
-  when :lggd then response.shortUrl
+  when :lggd, :shortswitch then response.shortUrl
   when :tinyurl then response.shorturl
   else abort("Something went wrong. Please raise an issue on Github")
 end
