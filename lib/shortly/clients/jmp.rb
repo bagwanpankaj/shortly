@@ -22,16 +22,14 @@
 module Shortly
   
   module Clients
+    
+    class Jmp < Bitly
+      
+      self.register!
 
-    class RubyUrl < Client
-      
-      base_uri 'rubyurl.com'
-      
-      def self.shorten(url)
-        post('/api/links.json', :query => { :link => { :website_url => url } })
-      end
+      base_uri 'api.j.mp'
+          
     end
-  
+    
   end
-  
 end

@@ -17,6 +17,7 @@ services = {
               :vgd => Shortly::Clients::Vgd,
               :lggd => Shortly::Clients::Lggd, 
               :bitly => Shortly::Clients::Bitly,
+              :jmp => Shortly::Clients::Jmp,
               :tinyurl => Shortly::Clients::Tinyurl
             }
 
@@ -30,15 +31,15 @@ opts = OptionParser.new do |opts|
     Options:
   EOS
 
-  opts.on("-s", "--service SERVICE", "Service to be used in shortner(e.g. bitly, googl(default), isgd)") do |service|
+  opts.on("-s", "--service SERVICE", "Service to be used in shortner(e.g. bitly, googl(default), isgd etc..)") do |service|
     options[:service] = service.to_sym
   end
 
-  opts.on("-l", "--login LOGIN", "Login creadential (for bitly only)") do |login|
+  opts.on("-l", "--login LOGIN", "Login creadential") do |login|
     options[:login] = login
   end
   
-  opts.on("-p", "--apikey APIKEY", "API Key credentials (for bitly only)") do |apikey|
+  opts.on("-p", "--apikey APIKEY", "API Key credentials") do |apikey|
     options[:apikey] = apikey
   end
 
@@ -52,7 +53,8 @@ opts = OptionParser.new do |opts|
   
   opts.on("-v", "--version", "Version of shortly") do
     options[:version] = true
-  end  
+  end
+  
 end
 
 opts.parse!
@@ -63,14 +65,14 @@ end
 
 options[:url] = ARGV.first if ARGV.length == 1
 
-#validate for bitly services
-if options[:service] == :bitly
-  abort("login is required for Bitly Services") unless options[:login]
-  abort("API Key is required for Bitly Services") unless options[:apikey]
+#validate for bitly/jmp services
+if [:bitly, :jmp].include? options[:service]
+  abort("login is required this service") unless options[:login]
+  abort("API Key is required this services") unless options[:apikey]
 end
 
 unless options[:url]
-  abort("Please provide atleast a valid URL. To see help type --help or -h")
+  abort("Please provide atleast a valid URL. To see help type --help or -h") and exit(1)
 end
 unless services.include?(options[:service])
   abort("#{options[:service]} sevice is not supported currently.")
@@ -78,17 +80,17 @@ end
 
 command = services[options[:service]]
 
-if options[:service] == :bitly
+if [:bitly, :jmp].include? options[:service]
   command.login = options.delete(:login)
   command.apiKey = options.delete(:apikey)
-elsif options[:service] == :lggd
+elsif [:lggd, :googl].include? options[:service]
   command.apiKey = options.delete(:apikey)
 end
 
 response = command.send(options[:method], options[:url])
 
 output = case options[:service]
-  when :bitly
+  when :bitly, :jmp
     case options[:method]
       when :shorten
         response.url
@@ -103,8 +105,8 @@ output = case options[:service]
       else
         response.analytics.to_json
     end
-  when :isgd then response.shorturl
-  when :vgd then response.shorturl
+  when :isgd, :vgd then response.shorturl
+  # when :vgd then response.shorturl
   when :lggd then response.shortUrl
   when :tinyurl then response.shorturl
   else abort("Something went wrong. Please raise an issue on Github")

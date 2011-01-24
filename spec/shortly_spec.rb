@@ -147,6 +147,42 @@ describe "Shortly" do
     
   end
   
+  #tests for client jmp
+  describe "Jmp" do
+    
+    before(:all) do
+      @jmp = Shortly::Clients::Jmp
+      @jmp.login = "modulo9"
+      @jmp.apiKey = "R_0f17f32f11de7e3e953de49c6f255104"
+      @long_url = "http://bagwanpankaj.com"
+      @invalid_url = "bagwanpankaj.com"
+      @short_url = "http://j.mp/dUdiIJ"
+    end
+    
+    it "should get a short url from googl(provided valid url)" do
+      res = @jmp.shorten(@long_url)
+      res.url.should_not be_empty
+      res.url.should == @short_url
+    end
+    
+    it "result should be an instance of OpenStruct" do
+      res = @jmp.shorten(@long_url)
+      res.should be_an_instance_of(OpenStruct)
+    end
+    
+    it "should throw an error on wrong uri format" do
+      lambda do
+        @jmp.shorten(@invalid_url)
+      end.should raise_error(Shortly::Errors::InvalidURIError)
+    end
+    
+    it "should expand a given short url" do
+      res = @jmp.expand("http://bit.ly/dUdiIJ")
+      res.long_url.should == @long_url
+    end
+    
+  end
+  
   #tests for client tinyurl
   describe "TinyUrl" do
     before(:all) do
