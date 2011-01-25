@@ -70,6 +70,8 @@ options[:url] = ARGV.first if ARGV.length == 1
 if [:bitly, :jmp].include? options[:service]
   abort("login is required this service") unless options[:login]
   abort("API Key is required this services") unless options[:apikey]
+elsif [:shortswitch].include? options[:service]
+  abort("API Key is required this services") unless options[:apikey]
 end
 
 unless options[:url]
@@ -107,7 +109,6 @@ output = case options[:service]
         response.analytics.to_json
     end
   when :isgd, :vgd then response.shorturl
-  # when :vgd then response.shorturl
   when :lggd, :shortswitch then response.shortUrl
   when :tinyurl then response.shorturl
   else abort("Something went wrong. Please raise an issue on Github")

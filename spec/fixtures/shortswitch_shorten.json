@@ -1,0 +1,14 @@
+{
+  "results":
+  {
+    "http://bagwanpankaj.com":
+    {
+      "hash":"t",
+      "longUrl":"http://bagwanpankaj.com",
+      "shortUrl":"http://demo.shortswitch.com/t"
+    }
+  },
+  "errorMessage":"",
+  "errorCode":"0",
+  "statusCode":"OK"
+}

@@ -1,0 +1,117 @@
+{
+ "kind": "urlshortener#url",
+ "id": "http://goo.gl/17pbM",
+ "longUrl": "http://bagwanpankaj.com/",
+ "status": "OK",
+ "created": "2011-01-07T07:51:08.415+00:00",
+ "analytics": {
+  "allTime": {
+   "shortUrlClicks": "4",
+   "longUrlClicks": "4",
+   "referrers": [
+    {
+     "count": "4",
+     "id": "Unknown/empty"
+    }
+   ],
+   "countries": [
+    {
+     "count": "3",
+     "id": "IN"
+    },
+    {
+     "count": "1",
+     "id": "US"
+    }
+   ],
+   "browsers": [
+    {
+     "count": "3",
+     "id": "Chrome"
+    },
+    {
+     "count": "1",
+     "id": "Firefox"
+    }
+   ],
+   "platforms": [
+    {
+     "count": "4",
+     "id": "Macintosh"
+    }
+   ]
+  },
+  "month": {
+   "shortUrlClicks": "4",
+   "longUrlClicks": "4",
+   "referrers": [
+    {
+     "count": "4",
+     "id": "Unknown/empty"
+    }
+   ],
+   "countries": [
+    {
+     "count": "3",
+     "id": "IN"
+    },
+    {
+     "count": "1",
+     "id": "US"
+    }
+   ],
+   "browsers": [
+    {
+     "count": "3",
+     "id": "Chrome"
+    },
+    {
+     "count": "1",
+     "id": "Firefox"
+    }
+   ],
+   "platforms": [
+    {
+     "count": "4",
+     "id": "Macintosh"
+    }
+   ]
+  },
+  "week": {
+   "shortUrlClicks": "1",
+   "longUrlClicks": "1",
+   "referrers": [
+    {
+     "count": "1",
+     "id": "Unknown/empty"
+    }
+   ],
+   "countries": [
+    {
+     "count": "1",
+     "id": "IN"
+    }
+   ],
+   "browsers": [
+    {
+     "count": "1",
+     "id": "Chrome"
+    }
+   ],
+   "platforms": [
+    {
+     "count": "1",
+     "id": "Macintosh"
+    }
+   ]
+  },
+  "day": {
+   "shortUrlClicks": "0",
+   "longUrlClicks": "0"
+  },
+  "twoHours": {
+   "shortUrlClicks": "0",
+   "longUrlClicks": "0"
+  }
+ }
+}
