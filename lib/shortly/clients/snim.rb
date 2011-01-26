@@ -37,8 +37,6 @@ module Shortly
       
       #shorts provided url by making call to bitly api with given options.      
       def self.shorten(url, options = {})
-        self.apiKey = '747253325af07d45caa32e52649d0077'
-        self.login = 'modulo9'
         validate_uri!(url)
         options = {:snipapi => self.apiKey,:snipuser => self.login, :sniplink => url}.merge(options)
         validate!(options)
@@ -53,12 +51,10 @@ module Shortly
       
       #gets analytics
       def self.analytics(short_id, options = {})
-        self.apiKey = '747253325af07d45caa32e52649d0077'
-        self.login = 'modulo9'
         options = {:snipapi => self.apiKey,:snipuser => self.login, :snipid => short_id}.merge(options)
         validate!(options)
         response = post("/getsnipdetails", post_params(options))
-        OpenStruct.new(response["snip"])
+        OpenStruct.new(unescape_url(response)["snip"])
       end
       
       private
@@ -66,6 +62,11 @@ module Shortly
       def self.validate!(options)
         raise NotAuthorizedError.new("Credentials required(login and apiKey)") unless 
           options.authenticable?(:snipapi, :snipuser)
+      end
+      
+      def self.unescape_url(response)
+        response["snip"]["url"] = CGI.unescape(response["snip"]["url"]) if response["snip"]
+        response
       end
           
     end

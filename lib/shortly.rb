@@ -1,4 +1,5 @@
 require 'uri'
+require 'cgi'
 require 'ostruct'
 require 'json'
 require 'httparty'

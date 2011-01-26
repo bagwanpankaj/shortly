@@ -19,7 +19,8 @@ services = {
               :shortswitch => Shortly::Clients::ShortSwitch,
               :bitly => Shortly::Clients::Bitly,
               :jmp => Shortly::Clients::Jmp,
-              :tinyurl => Shortly::Clients::Tinyurl
+              :tinyurl => Shortly::Clients::Tinyurl,
+              :snim => Shortly::Clients::Snim,
             }
 
 options = {:service => :googl, :method => :shorten} #defaults to be used
@@ -67,7 +68,7 @@ end
 options[:url] = ARGV.first if ARGV.length == 1
 
 #validate for bitly/jmp services
-if [:bitly, :jmp].include? options[:service]
+if [:bitly, :jmp, :snim].include? options[:service]
   abort("login is required this service") unless options[:login]
   abort("API Key is required this services") unless options[:apikey]
 elsif [:shortswitch].include? options[:service]
@@ -83,7 +84,7 @@ end
 
 command = services[options[:service]]
 
-if [:bitly, :jmp].include? options[:service]
+if [:bitly, :jmp, :snim].include? options[:service]
   command.login = options.delete(:login)
   command.apiKey = options.delete(:apikey)
 elsif [:lggd, :googl, :shortswitch].include? options[:service]
@@ -107,6 +108,13 @@ output = case options[:service]
         response.longUrl
       else
         response.analytics.to_json
+    end
+  when :snim
+    case options[:method]
+      when :shorten
+        response.shortUrl
+      when :expand
+        response.url
     end
   when :isgd, :vgd then response.shorturl
   when :lggd, :shortswitch then response.shortUrl

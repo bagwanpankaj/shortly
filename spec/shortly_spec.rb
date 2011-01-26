@@ -320,7 +320,7 @@ describe "Shortly" do
     
       res = @snim.expand(@short_url)
       res.url.should_not be_empty
-      res.url.should == CGI.escape(@long_url)
+      res.url.should == @long_url
     end
   end
   
