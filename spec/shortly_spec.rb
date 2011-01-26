@@ -25,7 +25,7 @@ describe "Shortly" do
     end
     
     it "should get a long url back for given valid short url" do
-      mock_request_for(@uri + "?shortUrl=http%3A%2F%2Fgoo.gl%2F17pbM", :method => :get, :fixture => "googl_expand")
+      mock_request_for(@uri + "?shortUrl=#{CGI.escape(@short_url)}", :method => :get, :fixture => "googl_expand")
       res = @googl.expand(@short_url)
       res.longUrl.should_not be_empty
       res.longUrl.should == @long_url
@@ -37,7 +37,7 @@ describe "Shortly" do
     end
     
     it "should give analytics for given short url" do
-      mock_request_for(@uri + "?shortUrl=http%3A%2F%2Fgoo.gl%2F17pbM&projection=FULL",
+      mock_request_for(@uri + "?shortUrl=#{CGI.escape(@short_url)}&projection=FULL",
         :fixture => "googl_analytics")
       
       res = @googl.analytics(@short_url)
@@ -64,7 +64,7 @@ describe "Shortly" do
     end
     
     it "should get a short url from Is.gd(provided valid url)" do
-      mock_request_for(@uri + "/create.php?url=http%3A%2F%2Fbagwanpankaj.com&format=json",
+      mock_request_for(@uri + "/create.php?url=#{CGI.escape(@long_url)}&format=json",
         :fixture => "isgd_shorten")
       
       res = @isgd.shorten(@long_url)
@@ -100,7 +100,7 @@ describe "Shortly" do
      end
   
      it "should get a short url from v.gd(provided valid url)" do
-       mock_request_for(@uri + "/create.php?url=http%3A%2F%2Fbagwanpankaj.com&format=json", 
+       mock_request_for(@uri + "/create.php?url=#{CGI.escape(@long_url)}&format=json", 
         :fixture => "vgd_shorten")
        
        res = @vgd.shorten(@long_url)
@@ -131,8 +131,8 @@ describe "Shortly" do
     
     before(:all) do
       @bitly = Shortly::Clients::Bitly
-      @bitly.login = "TEST_LOGIN"#"modulo9"
-      @bitly.apiKey = "R_TEST_API_KEY" #"R_0f17f32f11de7e3e953de49c6f255104"
+      @bitly.login = "TEST_LOGIN"
+      @bitly.apiKey = "R_TEST_API_KEY"
       @long_url = "http://bagwanpankaj.com"
       @invalid_url = "bagwanpankaj.com"
       @short_url = "http://bit.ly/dUdiIJ"
@@ -168,42 +168,49 @@ describe "Shortly" do
     end
     
   end
-  # 
-  # #tests for client jmp
-  # describe "Jmp" do
-  #   
-  #   before(:all) do
-  #     @jmp = Shortly::Clients::Jmp
-  #     @jmp.login = "modulo9"
-  #     @jmp.apiKey = "R_0f17f32f11de7e3e953de49c6f255104"
-  #     @long_url = "http://bagwanpankaj.com"
-  #     @invalid_url = "bagwanpankaj.com"
-  #     @short_url = "http://j.mp/dUdiIJ"
-  #   end
-  #   
-  #   it "should get a short url from googl(provided valid url)" do
-  #     res = @jmp.shorten(@long_url)
-  #     res.url.should_not be_empty
-  #     res.url.should == @short_url
-  #   end
-  #   
-  #   it "result should be an instance of OpenStruct" do
-  #     res = @jmp.shorten(@long_url)
-  #     res.should be_an_instance_of(OpenStruct)
-  #   end
-  #   
-  #   it "should throw an error on wrong uri format" do
-  #     lambda do
-  #       @jmp.shorten(@invalid_url)
-  #     end.should raise_error(Shortly::Errors::InvalidURIError)
-  #   end
-  #   
-  #   it "should expand a given short url" do
-  #     res = @jmp.expand("http://bit.ly/dUdiIJ")
-  #     res.long_url.should == @long_url
-  #   end
-  #   
-  # end
+  
+  #tests for client jmp
+  describe "Jmp" do
+    
+    before(:all) do
+      @jmp = Shortly::Clients::Jmp
+      @jmp.login = "TEST_LOGIN"
+      @jmp.apiKey = "R_TEST_API_KEY"
+      @long_url = "http://bagwanpankaj.com"
+      @invalid_url = "bagwanpankaj.com"
+      @short_url = "http://j.mp/dUdiIJ"
+      @uri = @jmp.base_uri + '/v3'
+    end
+    
+    it "should get a short url from jmp(provided valid url)" do
+      mock_request_for(@uri + "/shorten?longUrl=#{CGI.escape(@long_url)}&format=json&login=#{@jmp.login}&apiKey=#{@jmp.apiKey}", 
+       :fixture => "jmp_shorten")
+       
+      res = @jmp.shorten(@long_url)
+      res.url.should_not be_empty
+      res.url.should == @short_url
+    end
+    
+    it "result should be an instance of OpenStruct" do
+      res = @jmp.shorten(@long_url)
+      res.should be_an_instance_of(OpenStruct)
+    end
+    
+    it "should throw an error on wrong uri format" do
+      lambda do
+        @jmp.shorten(@invalid_url)
+      end.should raise_error(Shortly::Errors::InvalidURIError)
+    end
+    
+    it "should expand a given short url" do
+      mock_request_for(@uri + "/expand?shortUrl=#{CGI.escape(@short_url)}&format=json&login=#{@jmp.login}&apiKey=#{@jmp.apiKey}", 
+       :fixture => "jmp_expand")
+       
+      res = @jmp.expand(@short_url)
+      res.long_url.should == @long_url
+    end
+    
+  end
   
   #tests for client tinyurl
   describe "TinyUrl" do
@@ -245,7 +252,7 @@ describe "Shortly" do
     
     before(:all) do
       @ss = Shortly::Clients::ShortSwitch
-      Shortly::Clients::ShortSwitch.apiKey = "87171b48ff5487f8817021667298e059081d7cc0"
+      Shortly::Clients::ShortSwitch.apiKey = "TESTKEY"
       @long_url = "http://bagwanpankaj.com"
       @invalid_url = "bagwanpankaj.com"
       @short_url = "http://demo.shortswitch.com/t"
@@ -253,7 +260,7 @@ describe "Shortly" do
     end
 
     it "should get a short url from ShortSwitch(provided valid url)" do
-      mock_request_for(@uri + "/shorten?longUrl=http%3A%2F%2Fbagwanpankaj.com&format=json&apiKey=87171b48ff5487f8817021667298e059081d7cc0",
+      mock_request_for(@uri + "/shorten?longUrl=#{CGI.escape(@long_url)}&format=json&apiKey=TESTKEY",
        :fixture => "shortswitch_shorten")
     
       res = Shortly::Clients::ShortSwitch.shorten(@long_url)
