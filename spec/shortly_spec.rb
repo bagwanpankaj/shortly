@@ -43,6 +43,8 @@ describe "Shortly" do
       res = @googl.analytics(@short_url)
       res.analytics.should_not be_empty
       res.analytics.should be_an_instance_of(Hash)
+      res.analytics["week"].should be_an_instance_of(Hash)
+      res.analytics["day"].should be_an_instance_of(Hash)
     end
     
     it "should throw an error on wrong uri format" do
@@ -139,7 +141,7 @@ describe "Shortly" do
       @uri = @bitly.base_uri + "/v3"
     end
     
-    it "should get a short url from googl(provided valid url)" do
+    it "should get a short url from bitly(provided valid url)" do
       mock_request_for(@uri + "/shorten?longUrl=#{CGI.escape(@long_url)}&format=json&login=#{@bitly.login}&apiKey=#{@bitly.apiKey}", 
        :fixture => "bitly_shorten")
        
@@ -279,6 +281,47 @@ describe "Shortly" do
       end.should raise_error(Shortly::Errors::InvalidURIError)
     end
     
+  end
+  
+  #tests for client sn.im
+  describe "Snim" do
+    before(:all) do
+      @snim = Shortly::Clients::Snim
+      @snim.apiKey = "TESTKEY"
+      @snim.login = "TESTER"
+      @long_url = "http://bagwanpankaj.com/"
+      @invalid_url = "bagwanpankaj.com"
+      @short_url = "http://sn.im/1wvkof"
+      @uri = @snim.base_uri
+    end
+    
+    it "should get a short url from Snim(provided valid url)" do
+      mock_request_for(@uri + "/getsnip", :method => :post,
+       :fixture => "snim_shorten")
+    
+      res = @snim.shorten(@long_url)
+      res.shortUrl.should_not be_empty
+      res.shortUrl.should == @short_url
+    end
+    
+    it "should get analytics from Snim(provided valid id)" do
+      mock_request_for(@uri + "/getsnipdetails", :method => :post,
+       :fixture => "snim_analytics")
+    
+      res = @snim.analytics("1wvkof")
+      res.url.should_not be_empty
+      res.clicks.should_not be_nil
+      res.clicks.should == 10000
+    end
+    
+    it "should get long url from Snim(provided valid shorturl)" do
+      mock_request_for(@uri + "/getsnipdetails", :method => :post,
+       :fixture => "snim_analytics")
+    
+      res = @snim.expand(@short_url)
+      res.url.should_not be_empty
+      res.url.should == CGI.escape(@long_url)
+    end
   end
   
   describe "Client" do

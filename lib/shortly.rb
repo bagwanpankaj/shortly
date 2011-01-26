@@ -13,6 +13,7 @@ require 'shortly/clients/isgd'
 require 'shortly/clients/shortswitch'
 require 'shortly/clients/tinyurl'
 require 'shortly/clients/vgd'
+require 'shortly/clients/snim'
 
 module Shortly
   
