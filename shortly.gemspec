@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shortly}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bagwan Pankaj"]
-  s.date = %q{2011-01-23}
+  s.date = %q{2011-01-26}
   s.default_executable = %q{shortly}
   s.description = %q{Ruby Wrapper for different Url Shortner Services Ruby Wrapper}
   s.email = %q{bagwanpankaj@gmail.com}
@@ -27,8 +27,9 @@ Gem::Specification.new do |s|
     "lib/shortly/clients/bitly.rb",
     "lib/shortly/clients/googl.rb",
     "lib/shortly/clients/isgd.rb",
-    "lib/shortly/clients/rubyurl.rb",
+    "lib/shortly/clients/jmp.rb",
     "lib/shortly/clients/shortswitch.rb",
+    "lib/shortly/clients/snim.rb",
     "lib/shortly/clients/tinyurl.rb",
     "lib/shortly/clients/vgd.rb",
     "lib/shortly/errors.rb",
@@ -41,7 +42,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Url Shortner Services Ruby Wrapper}
   s.test_files = [
     "spec/shortly_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "spec/support/fakeweb_stub.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -55,6 +57,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.1"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<fakeweb>, [">= 0"])
     else
       s.add_dependency(%q<httparty>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
@@ -62,6 +65,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
       s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<fakeweb>, [">= 0"])
     end
   else
     s.add_dependency(%q<httparty>, [">= 0"])
@@ -70,6 +74,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
     s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<fakeweb>, [">= 0"])
   end
 end
 
