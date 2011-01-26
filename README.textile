@@ -54,6 +54,13 @@ Optionally you can set apiKey and login beforehand (it would be more DRY i think
 @tinyurl = Shortly::Clients::Tinyurl@
 @tinyurl.shorten('http://justatest.com').shorturl@
 
+*Sn.im*
+@snim = Shortly::Clients::Snim@
+@snim.apiKey = "<apiKey>"@
+@snim.login = "<login>"@
+@snim.shorten(long_url).shortUrl@
+@snim.expand(url_id/shorturl).url@
+
 h4. Command Line Utility
 
 Shortly also provides command line utility. See some uses below.
@@ -90,6 +97,11 @@ For detailed info visit my blog "http://BagwanPankaj.com":http://bagwanpankaj.co
 For more info write me at bagwanpankaj[at]gmail.com or me[at]bagwanpankaj.com
 
 Copyright (c) 2010 Bagwan Pankaj: http://bagwanpankaj.com, released under the MIT license
+
+h2. TODO's
+
+* Better documentation
+* Example series
 
 h2. Contributing to shortly
  
