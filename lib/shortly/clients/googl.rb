@@ -31,7 +31,7 @@ module Shortly
         attr_accessor :apiKey
       end
       
-      base_uri 'https://www.googleapis.com' #'goo.gl/api/shorten'
+      base_uri 'https://www.googleapis.com'
       headers "Content-Type" => "application/json"
       
       #shorts provided url by making call to goo.gl api with given options.      
