@@ -74,11 +74,12 @@ By default it uses Googl to short urls but you can specify which service to use.
 
 here are options and there possible values:
 
-| *Options* | *What value do they take* |
-| -s or --service | Service to use(e.g. bitly, isgd(default googl)) |
-| -m or --method | Method to use(e.g. expand or shorten or analytics(default shorten)) |
-| -l or --login | Login credential(required for bitly) |
-| -p or --apiKey | API Key credentials (for bitly and googl(optional) only) |
+| **Options**     | **What value do they take**                                         |
+|:----------------|--------------------------------------------------------------------:|
+| -s or --service | Service to use(e.g. bitly, isgd(default googl))                     |
+| -m or --method  | Method to use(e.g. expand or shorten or analytics(default shorten)) |
+| -l or --login   | Login credential(required for bitly)                                |
+| -p or --apiKey  | API Key credentials (for bitly and googl(optional) only)            |
 
 ##### Some more examples:
 
