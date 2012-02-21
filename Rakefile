@@ -9,22 +9,6 @@ rescue Bundler::BundlerError => e
 end
 require 'rake'
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "shortly"
-  gem.homepage = "http://github.com/bagwanpankaj/shortly"
-  gem.license = "MIT"
-  gem.summary = %Q{Url Shortner Services Ruby Wrapper}
-  gem.description = %Q{Ruby Wrapper for different Url Shortner Services Ruby Wrapper}
-  gem.email = "bagwanpankaj@gmail.com"
-  gem.authors = ["Bagwan Pankaj"]
-  gem.executables = ["shortly"]
-  # gem.files = Dir.glob('lib/**/**/*.rb') + Dir.glob('bin/**')
-  gem.files = Dir['lib/**/**.rb', 'VERSION', 'bin/**', 'LICENSE.txt']
-end
-Jeweler::RubygemsDotOrgTasks.new
-
 require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|

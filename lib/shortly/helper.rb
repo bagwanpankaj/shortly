@@ -35,13 +35,19 @@ module Shortly
         def authenticable?(*args)
           args.all?{|k| self.key?(k)} && !self.values.any?(&:blank?)
         end
+        
+        def to_params
+          collect do |key, value|
+            "#{key}=#{value}"
+          end.sort * '&'
+        end
       
       end
       
       module MonkeyObject
         
         def blank?
-          instance_of? Array ? empty? : nil?
+          instance_of?(Array) ? empty? : nil?
         end
         
         def present?
