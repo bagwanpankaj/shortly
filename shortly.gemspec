@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bagwan Pankaj"]
-  s.date = %q{2014-03-21}
+  s.date = %q{2014-03-22}
   s.default_executable = %q{shortly}
   s.description = %q{Ruby Wrapper for different Url Shortner Services Ruby Wrapper}
   s.email = %q{bagwanpankaj@gmail.com}
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "lib/shortly/clients/snim.rb",
     "lib/shortly/clients/tinyurl.rb",
     "lib/shortly/clients/vgd.rb",
+    "lib/shortly/clients/bitdo.rb",
     "lib/shortly/errors.rb",
     "lib/shortly/helper.rb"
   ]
@@ -48,15 +49,15 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<httparty>, [">= 0"])
-      s.add_runtime_dependency(%q<json>, [">= 0"])
+      s.add_runtime_dependency(%q<httparty>, ["= 0.13.0"])
+      s.add_runtime_dependency(%q<json>, ["= 1.8.1"])
     else
-      s.add_dependency(%q<httparty>, [">= 0"])
-      s.add_dependency(%q<json>, [">= 0"])
+      s.add_dependency(%q<httparty>, ["= 0.13.0"])
+      s.add_dependency(%q<json>, ["= 1.8.1"])
     end
   else
-    s.add_dependency(%q<httparty>, [">= 0"])
-    s.add_dependency(%q<json>, [">= 0"])
+    s.add_dependency(%q<httparty>, ["= 0.13.0"])
+    s.add_dependency(%q<json>, ["= 1.8.1"])
   end
 end
 
