@@ -33,7 +33,7 @@ module Shortly
         validate_uri!(url)
         options = {:format => "json", :url => url}.merge(options)
         response = get("/create.php", get_params(options))
-        OpenStruct.new(response)
+        OpenStruct.new(JSON.parse(response.body))
       end
       
     end

@@ -344,7 +344,7 @@ describe "Shortly" do
     end
     
     it "should respond to resitered class variable" do
-      Shortly::Client.class_variables.should include "@@registered"
+      Shortly::Client.class_variables.should include :"@@registered"
     end
     
     it "should respond to register/valid_uri? and registered methods" do
