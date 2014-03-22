@@ -1,5 +1,7 @@
 # Shortly
 
+[![Gem Version](https://badge.fury.io/rb/shortly.png)](http://badge.fury.io/rb/shortly)
+
 <a style="float:right" href='https://pledgie.com/campaigns/24609'><img alt='Click here to lend your support to: Shortly and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/24609.png?skin_name=chrome' border='0' ></a><div style="clear:both"></div>
     
      ____  _                _   _       
