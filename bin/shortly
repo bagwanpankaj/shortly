@@ -21,6 +21,7 @@ services = {
               :jmp => Shortly::Clients::Jmp,
               :tinyurl => Shortly::Clients::Tinyurl,
               :snim => Shortly::Clients::Snim,
+              :bitdo => Shortly::Clients::Bitdo
             }
 
 options = {:service => :googl, :method => :shorten} #defaults to be used
@@ -119,6 +120,7 @@ output = case options[:service]
   when :isgd, :vgd then response.shorturl
   when :lggd, :shortswitch then response.shortUrl
   when :tinyurl then response.shorturl
+  when :bitdo then response.short_url
   else abort("Something went wrong. Please raise an issue on Github")
 end
 

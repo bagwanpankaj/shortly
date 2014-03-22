@@ -15,6 +15,7 @@ require 'shortly/clients/shortswitch'
 require 'shortly/clients/tinyurl'
 require 'shortly/clients/vgd'
 require 'shortly/clients/snim'
+require 'shortly/clients/bitdo'
 
 module Shortly
   
