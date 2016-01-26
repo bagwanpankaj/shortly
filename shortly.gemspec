@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bagwan Pankaj"]
-  s.date = %q{2014-03-22}
+  s.date = %q{2016-01-26}
   s.default_executable = %q{shortly}
   s.description = %q{Ruby Wrapper for different Url Shortner Services Ruby Wrapper}
   s.email = %q{bagwanpankaj@gmail.com}

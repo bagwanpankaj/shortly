@@ -132,4 +132,4 @@ Copyright (c) 2010 Bagwan Pankaj: http://bagwanpankaj.com, released under the MI
 
 ## Copyright
 
-Copyright (c) 2010-2014 [Bagwan Pankaj]. See LICENSE.txt for further details.
+Copyright (c) 2010-2016 [Bagwan Pankaj]. See LICENSE.txt for further details.
