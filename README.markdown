@@ -5,13 +5,13 @@
 [![Build Status](https://travis-ci.org/bagwanpankaj/shortly.svg?branch=master)](https://travis-ci.org/bagwanpankaj/shortly)
 
 <a style="float:right" href='https://pledgie.com/campaigns/24609'><img alt='Click here to lend your support to: Shortly and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/24609.png?skin_name=chrome' border='0' ></a><div style="clear:both"></div>
-    
-     ____  _                _   _       
-    / ___|| |__   ___  _ __| |_| |_   _ 
+
+     ____  _                _   _
+    / ___|| |__   ___  _ __| |_| |_   _
     \___ \| '_ \ / _ \| '__| __| | | | |
      ___) | | | | (_) | |  | |_| | |_| |
     |____/|_| |_|\___/|_|   \__|_|\__, |
-                                  |___/ 
+                                  |___/
 
 
 A Ruby wrapper for various url shortener services
@@ -127,7 +127,7 @@ Copyright (c) 2010 Bagwan Pankaj: http://bagwanpankaj.com, released under the MI
 * Example series
 
 ## Contributing to shortly
- 
+
 * Fork, code, and then send me a pull request.
 
 ## Copyright

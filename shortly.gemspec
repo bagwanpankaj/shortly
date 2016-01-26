@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shortly}
-  s.version = File.open("VERSION").read#"0.3.3"
+  s.version = File.open("VERSION").read
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bagwan Pankaj"]

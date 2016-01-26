@@ -1,5 +1,5 @@
 # Copyright (c) 2011 Bagwan Pankaj
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
@@ -7,10 +7,10 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -20,44 +20,44 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module Shortly
-  
+
   module Helper
-    
+
     module MonkeyPatches
-      
+
       def self.activate!
         Hash.send(:include, MonkeyHash)
         Object.send(:include, MonkeyObject)
       end
-      
+
       module MonkeyHash
-      
+
         def authenticable?(*args)
           args.all?{|k| self.key?(k)} && !self.values.any?(&:blank?)
         end
-        
+
         def to_params
           collect do |key, value|
             "#{key}=#{value}"
           end.sort * '&'
         end
-      
+
       end
-      
+
       module MonkeyObject
-        
+
         def blank?
           instance_of?(Array) ? empty? : nil?
         end
-        
+
         def present?
           !blank?
         end
-        
+
       end
-      
+
     end
-    
+
   end
-  
+
 end

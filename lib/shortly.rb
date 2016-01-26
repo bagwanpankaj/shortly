@@ -18,17 +18,17 @@ require 'shortly/clients/snim'
 require 'shortly/clients/bitdo'
 
 module Shortly
-  
+
   #gem version
   def self.version #:nodoc
     File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
   end
-  
+
   #returns active services
   def self.active_services
     Client.registered
   end
-  
+
   Helper::MonkeyPatches.activate!
-  
+
 end
